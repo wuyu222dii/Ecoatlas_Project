@@ -1,0 +1,29 @@
+# Please edit this gitignore file to suit your needs. You may
+# look at other .gitignore files in the provided examples for inspiration.
+
+# --- Dependencies & build output (do not commit — coursework requirement) ---
+node_modules/
+**/node_modules/
+target/
+**/target/
+dist/
+**/dist/
+dist-ssr/
+**/dist-ssr/
+build/
+**/build/
+out/
+**/out/
+*.tsbuildinfo
+.vite/
+
+.DS_Store
+
+# Root-level /docs only (team notes). Use / prefix so Web/backend/docs/ is NOT ignored.
+/docs/
+
+# Environment variables - Edit if necessary
+.env
+.env.*
+!.env.example
+!.env.test

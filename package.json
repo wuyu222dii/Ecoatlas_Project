@@ -1,0 +1,12 @@
+{
+  "name": "group-project-six-cookies",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix Web/frontend run dev",
+    "build": "npm --prefix Web/frontend run build",
+    "frontend:dev": "npm --prefix Web/frontend run dev",
+    "frontend:build": "npm --prefix Web/frontend run build",
+    "backend:run": "mvn -pl Web/backend spring-boot:run",
+    "backend:compile": "mvn -q -pl Web/backend -DskipTests compile"
+  }
+}
