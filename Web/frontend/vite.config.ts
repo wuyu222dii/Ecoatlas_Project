@@ -1,7 +1,11 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+
+const srcDir = path.dirname(fileURLToPath(import.meta.url));
 
 /** Lets Google sign-in iframe/popup talk to the opener via postMessage (avoids COOP console errors). */
 const coopForOAuth: Record<string, string> = {
@@ -38,6 +42,11 @@ function spotifyCallbackSpaFallback(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(), spotifyCallbackSpaFallback()],
+  resolve: {
+    alias: {
+      "@": path.resolve(srcDir, "src"),
+    },
+  },
   server: {
     /**
      * With default localhost-only binding, some systems refuse IPv4 127.0.0.1:5173 while

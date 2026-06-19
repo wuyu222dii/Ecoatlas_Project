@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.tsx";
-import SpotifyCallback from "./SpotifyCallback.tsx";
+import "@/styles/index.css";
+import App from "@/app/App";
+import SpotifyCallback from "@/pages/SpotifyCallback";
 
 const root = document.getElementById("root")!;
 const path = window.location.pathname.replace(/\/$/, "") || "/";

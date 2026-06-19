@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState, type ChangeEvent, type PointerEvent as ReactPointerEvent } from "react";
-import monitorWallpaper from "./assets/monitor-wallpaper.jpg";
-import scene from "./assets/door-scene.png";
-import door from "./assets/door-only.png";
-import desktopDay from "./assets/desktop.png";
-import desktopNight from "./assets/desktop-night.png";
-import partyHat from "./assets/party-hat.png";
-import tennisBall from "./assets/tennis-ball.png";
-import bookClose from "./assets/book-close.png";
-import bookOpen from "./assets/book-open.png";
-import globeImg from "./assets/globe.png";
-import headphonesImg from "./assets/headphones.png";
-import LoginPanel from "./components/LoginPanel";
-import MusicPlayer from "./components/MusicPlayer";
-import type { PlayerType } from "./components/MusicPlayer";
-import MonitorScreen from "./components/MonitorScreen";
-import MapModal from "./components/MapModal";
-import { PRESET_AVATARS, UserAvatar } from "./components/UserAvatar";
+import monitorWallpaper from "@/assets/monitor-wallpaper.jpg";
+import scene from "@/assets/door-scene.png";
+import door from "@/assets/door-only.png";
+import desktopDay from "@/assets/desktop.png";
+import desktopNight from "@/assets/desktop-night.png";
+import partyHat from "@/assets/party-hat.png";
+import tennisBall from "@/assets/tennis-ball.png";
+import bookClose from "@/assets/book-close.png";
+import bookOpen from "@/assets/book-open.png";
+import globeImg from "@/assets/globe.png";
+import headphonesImg from "@/assets/headphones.png";
+import LoginPanel from "@/components/auth/LoginPanel";
+import MapModal from "@/components/map/MapModal";
+import MonitorScreen from "@/components/desk/MonitorScreen";
+import MusicPlayer from "@/components/player/MusicPlayer";
+import type { PlayerType } from "@/components/player/MusicPlayer";
+import { PRESET_AVATARS, UserAvatar } from "@/components/common/UserAvatar";
 import {
   authApi,
   clearAuthUser,
@@ -24,113 +24,19 @@ import {
   getToken,
   saveAuthUser,
   type AuthUser,
-} from "./lib/api";
-
-const IMG_W = 3833;
-const IMG_H = 2157;
-const IMG_RATIO = IMG_W / IMG_H;
-const DOOR_SPEED = 1;
-const SKIP_LOGIN = ["1", "true", "yes", "on"].includes(
-  (import.meta.env.VITE_SKIP_LOGIN ?? "").toLowerCase(),
-);
-
-function SunIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="4.5" fill="#FFD34D" />
-      <g stroke="#FFD34D" strokeWidth="1.8" strokeLinecap="round">
-        <line x1="12" y1="2.5" x2="12" y2="5" />
-        <line x1="12" y1="19" x2="12" y2="21.5" />
-        <line x1="2.5" y1="12" x2="5" y2="12" />
-        <line x1="19" y1="12" x2="21.5" y2="12" />
-        <line x1="5.2" y1="5.2" x2="7" y2="7" />
-        <line x1="17" y1="17" x2="18.8" y2="18.8" />
-        <line x1="17" y1="7" x2="18.8" y2="5.2" />
-        <line x1="5.2" y1="18.8" x2="7" y2="17" />
-      </g>
-    </svg>
-  );
-}
-
-function MoonIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M17.3 14.7C16.4 15.4 15.2 15.8 14 15.8C10.8 15.8 8.2 13.2 8.2 10C8.2 8.8 8.6 7.6 9.3 6.7C6.6 7.4 4.6 9.9 4.6 12.8C4.6 16.3 7.5 19.2 11 19.2C13.9 19.2 16.4 17.2 17.3 14.7Z"
-        fill="#FFD34D"
-        transform="translate(1.2 -0.8)"
-      />
-    </svg>
-  );
-}
-
-function LogoutIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M10.5 5.5H6.8C5.8 5.5 5 6.3 5 7.3v9.4c0 1 .8 1.8 1.8 1.8h3.7"
-        stroke="#FFD34D"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      <path
-        d="M13 8l4 4-4 4"
-        stroke="#FFD34D"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M17 12H9"
-        stroke="#FFD34D"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-  function SettingsIcon() {
-    return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path
-          d="M12 15.4a3.4 3.4 0 1 0 0-6.8 3.4 3.4 0 0 0 0 6.8Z"
-          stroke="#FFD34D"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M19.4 15.1a1 1 0 0 0 .2 1.1l.1.1a1.2 1.2 0 0 1 0 1.7l-1 1a1.2 1.2 0 0 1-1.7 0l-.1-.1a1 1 0 0 0-1.1-.2 1 1 0 0 0-.6.9v.2a1.2 1.2 0 0 1-1.2 1.2h-1.6a1.2 1.2 0 0 1-1.2-1.2v-.2a1 1 0 0 0-.7-.9 1 1 0 0 0-1.1.2l-.1.1a1.2 1.2 0 0 1-1.7 0l-1-1a1.2 1.2 0 0 1 0-1.7l.1-.1a1 1 0 0 0 .2-1.1 1 1 0 0 0-.9-.6h-.2a1.2 1.2 0 0 1-1.2-1.2v-1.6a1.2 1.2 0 0 1 1.2-1.2h.2a1 1 0 0 0 .9-.7 1 1 0 0 0-.2-1.1l-.1-.1a1.2 1.2 0 0 1 0-1.7l1-1a1.2 1.2 0 0 1 1.7 0l.1.1a1 1 0 0 0 1.1.2h0a1 1 0 0 0 .7-.9v-.2A1.2 1.2 0 0 1 10.4 2h1.6a1.2 1.2 0 0 1 1.2 1.2v.2a1 1 0 0 0 .6.9h0a1 1 0 0 0 1.1-.2l.1-.1a1.2 1.2 0 0 1 1.7 0l1 1a1.2 1.2 0 0 1 0 1.7l-.1.1a1 1 0 0 0-.2 1.1v0a1 1 0 0 0 .9.7h.2a1.2 1.2 0 0 1 1.2 1.2v1.6a1.2 1.2 0 0 1-1.2 1.2h-.2a1 1 0 0 0-.9.6Z"
-          stroke="#FFD34D"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  }
-  type DeskItemKey = "hat" | "ball" | "globe" | "book";
-
-  type DeskLayout = Record<
-    DeskItemKey,
-    {
-      left: number;
-      top: number;
-    }
-  >;
-
-  const DESK_LAYOUT_STORAGE_KEY = "desk-layout-v1";
-
-  const DEFAULT_DESK_LAYOUT: DeskLayout = {
-    hat: { left: 14.8, top: 73.5 },
-    ball: { left: 26.4, top: 84.2 },
-    globe: { left: 69.8, top: 63.5 },
-    book: { left: 80.5, top: 82.5 },
-  };
-
-  const clamp = (value: number, min: number, max: number) =>
-    Math.min(Math.max(value, min), max);
-
-
+} from "@/lib/api";
+import {
+  clamp,
+  DEFAULT_DESK_LAYOUT,
+  DESK_LAYOUT_STORAGE_KEY,
+  DOOR_SPEED,
+  getThemeByTime,
+  IMG_RATIO,
+  SKIP_LOGIN,
+  type DeskItemKey,
+  type DeskLayout,
+} from "./constants";
+import { LogoutIcon, MoonIcon, SettingsIcon, SunIcon } from "./icons";
 
 export default function App() {
   const initialUnlocked = SKIP_LOGIN || Boolean(getToken());
@@ -183,11 +89,6 @@ export default function App() {
     itemHeight: number;
   } | null>(null);
 
-
-  const getThemeByTime = (): "day" | "night" => {
-    const hour = new Date().getHours();
-    return hour >= 6 && hour < 18 ? "day" : "night";
-  };
 
   const [desktopTheme, setDesktopTheme] = useState<"day" | "night">(getThemeByTime);
   const [isAutoTheme, setIsAutoTheme] = useState(true);

@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { authApi, saveAuthUser, saveToken, type AuthUser } from "../lib/api";
-import { renderGoogleSignInButton } from "../lib/googleAuth";
+import { authApi, saveAuthUser, saveToken, type AuthUser } from "@/lib/api";
+import { renderGoogleSignInButton } from "@/lib/auth/googleAuth";
 
 type View = "login" | "register" | "forgot";
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
-import { UserAvatar } from "./UserAvatar";
+import { UserAvatar } from "@/components/common/UserAvatar";
 
 type MonitorScreenProps = {
   theme: "day" | "night";

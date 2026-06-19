@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getToken, spotifyApi } from "./lib/api";
-import { spotifyRedirectUri } from "./lib/pkce";
+import { getToken, spotifyApi } from "@/lib/api";
+import { spotifyRedirectUri } from "@/lib/auth/pkce";
 
 const PKCE_KEY = "spotify_pkce_verifier";
 
