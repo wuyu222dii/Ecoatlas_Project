@@ -182,17 +182,6 @@ Add redirect URI (must match the app exactly):
 
 ---
 
-## Team (CS732 · Six Cookies)
-
-- Yingnan Li _(yil212@aucklanduni.ac.nz)_  
-- Qiana Wang _(lwan866@aucklanduni.ac.nz)_  
-- Yujian Wu _(ywu433@aucklanduni.ac.nz)_  
-- Tongfan Xing _(txin067@aucklanduni.ac.nz)_  
-- Chunyuan Yang _(cyan688@aucklanduni.ac.nz)_  
-- Zhihong Yang _(zyan659@aucklanduni.ac.nz)_  
-
----
-
 ## License & course context
 
 Course project for **University of Auckland CS732**. Use is limited to team and course requirements unless agreed otherwise.
