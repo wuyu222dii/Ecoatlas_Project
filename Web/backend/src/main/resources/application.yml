@@ -56,7 +56,7 @@ logging:
 # Google OAuth2 (id_token verified by GoogleIdTokenVerifier; no tokeninfo URL)
 google:
   # Must match front-end VITE_GOOGLE_CLIENT_ID (same OAuth Web client)
-  client-id: 639978587854-7qescuust62osbkmu4f63unjpdg5k9re.apps.googleusercontent.com
+  client-id: 1018001010322-mnhlc7ht6pdp594g53gm58324dqaqvsi.apps.googleusercontent.com
   # Places API (New). Set GOOGLE_MAPS_API_KEY in env or deployment; do not commit real keys.
   maps:
     api-key: AIzaSyDZCtBFmlhL-2YzqYmiCVblzBQL5LHIHgI
