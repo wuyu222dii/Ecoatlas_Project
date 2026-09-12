@@ -1,3 +1,7 @@
+# Render / cloud hosts inject PORT; default 8080 for local.
+server:
+  port: ${PORT:8080}
+
 spring:
   application:
     name: demo
