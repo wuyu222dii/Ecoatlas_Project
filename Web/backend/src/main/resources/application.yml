@@ -56,17 +56,17 @@ logging:
 # Google OAuth2 (id_token verified by GoogleIdTokenVerifier; no client-secret needed)
 # Must match front-end VITE_GOOGLE_CLIENT_ID (same OAuth Web client).
 google:
-  client-id: ${GOOGLE_CLIENT_ID:}
+  client-id: ${GOOGLE_CLIENT_ID:1018001010322-mnhlc7ht6pdp594g53gm58324dqaqvsi.apps.googleusercontent.com}
   # Places API (New). Create an API key in Google Cloud; enable Places API (New).
   maps:
-    api-key: ${GOOGLE_MAPS_API_KEY:}
+    api-key: ${GOOGLE_MAPS_API_KEY:AIzaSyAObTNiWhs3Rv6HeEpikP50qLdlO7A_CwA}
     base-url: https://places.googleapis.com/v1
     request-timeout-seconds: 15
 
 # Gemini (EchoAtlas AI). Prefer env in production.
 ai:
   gemini:
-    api-key: ${AI_GEMINI_API_KEY:}
+    api-key: ${AI_GEMINI_API_KEY:AIzaSyCKLNTFgWpMKVayZQgTbLpdjX8GxS4jIsc}
     model: gemini-2.0-flash
     base-url: https://generativelanguage.googleapis.com/v1beta
     temperature: 0.45
