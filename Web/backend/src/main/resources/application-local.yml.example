@@ -1,0 +1,24 @@
+# Copy to application-local.yml (gitignored) and fill in your own values.
+# Then run: mvn spring-boot:run -Dspring-boot.run.profiles=local
+#
+# Or export the same keys as environment variables / set them on Render.
+
+spring:
+  datasource:
+    url: jdbc:postgresql://YOUR_NEON_HOST/neondb?sslmode=require
+    username: neondb_owner
+    password: YOUR_NEON_PASSWORD
+
+google:
+  client-id: YOUR_GOOGLE_OAUTH_WEB_CLIENT_ID.apps.googleusercontent.com
+  maps:
+    api-key: YOUR_GOOGLE_MAPS_API_KEY
+
+ai:
+  gemini:
+    api-key: YOUR_GEMINI_API_KEY
+
+spotify:
+  client-id: YOUR_SPOTIFY_CLIENT_ID
+  client-secret: YOUR_SPOTIFY_CLIENT_SECRET
+  default-redirect-uri: http://127.0.0.1:5173/spotify-callback

@@ -49,12 +49,14 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        // Local + common free hosts (Vercel / Netlify). Add your custom domain if needed.
+        // Local + free hosts + custom domain
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:*",
                 "http://127.0.0.1:*",
                 "https://*.vercel.app",
-                "https://*.netlify.app"
+                "https://*.netlify.app",
+                "https://echoatlas.fit",
+                "https://www.echoatlas.fit"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));

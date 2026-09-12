@@ -6,11 +6,11 @@ spring:
   application:
     name: demo
   datasource:
-    url: jdbc:postgresql://ep-orange-butterfly-a7vj087q-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require
-    username: neondb_owner
-    password: npg_dIN2YxwRoy8V
+    url: ${SPRING_DATASOURCE_URL:}
+    username: ${SPRING_DATASOURCE_USERNAME:}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
     hikari:
-      # Supabase pooler (port 5432) has a low per-database connection cap (often ~15); keep pool small.
+      # Neon / pooler has a low connection cap; keep pool small.
       maximum-pool-size: 3
       minimum-idle: 1
       max-lifetime: 540000
@@ -53,32 +53,32 @@ logging:
     io.netty: WARN
     org.springframework.boot.autoconfigure.security: WARN
 
-# Google OAuth2 (id_token verified by GoogleIdTokenVerifier; no tokeninfo URL)
+# Google OAuth2 (id_token verified by GoogleIdTokenVerifier; no client-secret needed)
+# Must match front-end VITE_GOOGLE_CLIENT_ID (same OAuth Web client).
 google:
-  # Must match front-end VITE_GOOGLE_CLIENT_ID (same OAuth Web client)
-  client-id: 1018001010322-mnhlc7ht6pdp594g53gm58324dqaqvsi.apps.googleusercontent.com
-  # Places API (New). Set GOOGLE_MAPS_API_KEY in env or deployment; do not commit real keys.
+  client-id: ${GOOGLE_CLIENT_ID:}
+  # Places API (New). Create an API key in Google Cloud; enable Places API (New).
   maps:
-    api-key: AIzaSyDZCtBFmlhL-2YzqYmiCVblzBQL5LHIHgI
+    api-key: ${GOOGLE_MAPS_API_KEY:}
     base-url: https://places.googleapis.com/v1
     request-timeout-seconds: 15
 
-# Gemini (EchoAtlas AI). Use env vars in production; do not commit real keys to public repos.
+# Gemini (EchoAtlas AI). Prefer env in production.
 ai:
   gemini:
-    api-key: AIzaSyCKLNTFgWpMKVayZQgTbLpdjX8GxS4jIsc
+    api-key: ${AI_GEMINI_API_KEY:}
     model: gemini-2.0-flash
     base-url: https://generativelanguage.googleapis.com/v1beta
     temperature: 0.45
     max-output-tokens: 8192
     request-timeout-seconds: 90
 
-# Spotify Web API (user OAuth, search, tracks). Fill in after creating an app in the Spotify Dashboard.
+# Spotify Web API (user OAuth, search, tracks).
 spotify:
-  client-id: c03c84cdc14a4f8099bc6b6c4a086bd0
-  client-secret: bc48b90d28054243b6cb35deebea80e5
+  client-id: ${SPOTIFY_CLIENT_ID:}
+  client-secret: ${SPOTIFY_CLIENT_SECRET:}
   # Must match a Redirect URI in the Dashboard (page that receives ?code=)
-  default-redirect-uri: http://127.0.0.1:5173/spotify-callback
+  default-redirect-uri: ${SPOTIFY_DEFAULT_REDIRECT_URI:http://127.0.0.1:5173/spotify-callback}
   scopes: user-read-email user-read-private user-library-read user-library-modify
   state-ttl-minutes: 10
   http-timeout-seconds: 30
