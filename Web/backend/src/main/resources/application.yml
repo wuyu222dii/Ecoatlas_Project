@@ -6,9 +6,9 @@ spring:
   application:
     name: demo
   datasource:
-    url: jdbc:postgresql://aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres
-    username: postgres.mvfbbbffqgfayouayjny
-    password: SdN6pBoFqW4CP7Mu
+    url: jdbc:postgresql://ep-orange-butterfly-a7vj087q-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require
+    username: neondb_owner
+    password: npg_dIN2YxwRoy8V
     hikari:
       # Supabase pooler (port 5432) has a low per-database connection cap (often ~15); keep pool small.
       maximum-pool-size: 3
